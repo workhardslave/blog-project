@@ -1,6 +1,49 @@
+#Default
+#server:
+#  port: 8080
+#  servlet:
+#    context-path: /
+
+# localhost:8000/blog
+server:
+  port: 8000
+  servlet:
+    context-path: /blog
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# 파일 리턴 기본경로 src/main/resources/static
+# 스프링부트에서는 기본적으로 jsp를 지원하지 않는다.
+# Japser를 사용하면 자동으로 경로가 webapp으로 잡힌다.
+# 따라서 webapp 디렉토리를 따로 만들어줘야한다.
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul # db�̸�?�����ð�
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql 6.x 이상부터 cj를 붙인다.
+    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul # DB 접속 주소
     username: cos
     password: cos1234
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        # 테이블을 만들 때 엔티티 변수명을 그대로 쓴다.
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#        테이블을 만들 때 변수명에 언더 스코어(_)를 붙여준다.
+#        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+      use-new-id-generator-mappings: false # JPA에서 제공하는 기본 넘버링 전략을 false
+    show-sql: true # 콘솔창에 sql문을 보여줌
+    properties:
+      hibernate.format_sql: true # 콘솔창에 sql문을 정렬해서 보여줌
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
