@@ -1,14 +1,12 @@
 package com.cos.blog.domain;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@NoArgsConstructor
 //@DynamicInsert // insert할 때 null인 필드 제외
 @ToString
 @Getter @Setter // 나중에 @Setter 안쓰도록 수정
@@ -20,7 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB의 넘버링 전략을 따라감
     private int id; // sequence, auto_increment
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 30, unique = true)
     private String username;
 
     @Column(nullable = false, length = 100) // 123456 => 해쉬(패스워드 암호화)
@@ -39,5 +37,11 @@ public class User {
 
 //    @UpdateTimestamp
 //    private Timestamp updateDate;
+
+    @Builder
+    public void updateUser(String email, String password) {
+        this.email=email;
+        this.password=password;
+    }
 
 }
