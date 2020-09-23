@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 //@DynamicInsert // insert할 때 null인 필드 제외
 @ToString
-@Getter @Setter // 나중에 @Setter 안쓰도록 수정
+@Getter @Setter // 나중에 @Setter 뺄꺼임
 // ORM : JAVA(다른언어) Object -> DB 테이블로 매핑해주는 기술
 @Entity // User 클래스가 MySQL에 테이블이 생성된다.
 public class User {
