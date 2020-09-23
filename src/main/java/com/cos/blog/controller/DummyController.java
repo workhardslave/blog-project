@@ -26,7 +26,7 @@ public class DummyController {
     @PostMapping("/dummy/join")
     public String join(User user) { // key - value (JSON)
 
-        user.setRole(RoleType.USER);
+//        user.setRole(RoleType.USER);
 
         System.out.println("username = " + user.getUsername());
         System.out.println("password = " + user.getPassword());

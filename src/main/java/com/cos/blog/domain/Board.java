@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-@ToString(exclude = "user") // (양방향으로 참조시 무한루프 발생)
 @Getter
 @Entity
 public class Board {

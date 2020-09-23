@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@ToString(exclude = {"user", "board"})
 @Getter
 @Entity
 public class Reply {
