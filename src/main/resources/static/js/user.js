@@ -3,13 +3,17 @@ let index = {
         $("#btn-save").on("click", ()=> { // function(){} 대신 ()=> 쓴 이유 : this를 바인딩 하기 위해서
             this.save();
         });
+
+        $("#btn-login").on("click", ()=> {
+            this.login();
+        })
     },
 
     save : function () {
         let data = {
-            username: $("#username").val(),
+            email: $("#email").val(),
             password: $("#password").val(),
-            email: $("#email").val()
+            username: $("#username").val()
         };
 
         // ajax 호출시, default가 비동기 호출
@@ -18,13 +22,13 @@ let index = {
         // 따라서 dataType이 JSON인 경우는 생략 가능
         $.ajax({
             type: 'POST',
-            url: '/blog/api/users',
+            url: 'auth/api/signup',
             dataType: 'json', // 요청을 서버로 해서 응답이 왔을 때,기본적으로 문자열 (생긴게 JSON이면) -> js object로 변경
             contentType: 'application/json; charset=utf-8', // body 데이터가 어떤 타입인지(MIME)
             data: JSON.stringify(data) // http body 데이터, js object -> JSON 문자열
         }).done(function () {
             alert("회원가입에 성공하셨습니다!");
-            // location.href="/blog";
+            location.href="/";
         }).fail(function (response) {
             markingErrorField(response);
         });

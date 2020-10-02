@@ -43,4 +43,10 @@ public class UserService {
         dto.giveRole(RoleType.USER); // USER, ADMIN
         return userRepository.save(dto.toEntity()).getId();
     }
+
+   /* @Transactional(readOnly = true) // Select할 때, 트랜잭션 시작, 서비스 종료시에 트랜잭션 종료(정합성)
+    public User signIn(User user) {
+
+        return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+    }*/
 }
