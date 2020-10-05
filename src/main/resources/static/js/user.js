@@ -3,10 +3,6 @@ let index = {
         $("#btn-save").on("click", ()=> { // function(){} 대신 ()=> 쓴 이유 : this를 바인딩 하기 위해서
             this.save();
         });
-
-        $("#btn-login").on("click", ()=> {
-            this.login();
-        })
     },
 
     save : function () {
@@ -22,7 +18,7 @@ let index = {
         // 따라서 dataType이 JSON인 경우는 생략 가능
         $.ajax({
             type: 'POST',
-            url: 'auth/api/signup',
+            url: '/auth/api/signup',
             dataType: 'json', // 요청을 서버로 해서 응답이 왔을 때,기본적으로 문자열 (생긴게 JSON이면) -> js object로 변경
             contentType: 'application/json; charset=utf-8', // body 데이터가 어떤 타입인지(MIME)
             data: JSON.stringify(data) // http body 데이터, js object -> JSON 문자열
@@ -30,6 +26,7 @@ let index = {
             alert("회원가입에 성공하셨습니다!");
             location.href="/";
         }).fail(function (response) {
+            console.log(response);
             markingErrorField(response);
         });
     }
@@ -49,7 +46,6 @@ let markingErrorField = function (response) {
     for(let i=0, length = errorFields.length; i<length;i++){
         error = errorFields[i];
         $field = $('#'+error['field']); // ex) $("#email")
-
         if($field && $field.length > 0){
             $field.siblings('.error-message').remove(); // 해당 코드를 통해 한번만 출력
             $field.after('<span class="error-message text-muted taxt-small text-danger"' +

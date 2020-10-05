@@ -5,6 +5,7 @@ import com.cos.blog.domain.User;
 import com.cos.blog.dto.UserSaveRequestDto;
 import com.cos.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -20,6 +21,8 @@ public class UserService {
     // 어떠한 Bean에 생성자가 오직 하나만 있고, 생성자의 파라미터로 받는 Bean이 존재하면
     // @Autowired 어노테이션을 명시하지 않아도 DI 가능!
     private final UserRepository userRepository;
+
+    private final BCryptPasswordEncoder encoder;
 
     // 회원가입 시, 유효성 체크
 //    public Map<String, String> validateHandling(Errors errors) {
@@ -39,8 +42,10 @@ public class UserService {
     // 회원가입 로직
     @Transactional
     public int signUp(UserSaveRequestDto dto) {
-        
+        String rawPassword = dto.getPassword();
+        String encPassword = encoder.encode(rawPassword);
         dto.giveRole(RoleType.USER); // USER, ADMIN
+        dto.encodePassword(encPassword); // 해쉬화 된 비밀번호 저장
         return userRepository.save(dto.toEntity()).getId();
     }
 

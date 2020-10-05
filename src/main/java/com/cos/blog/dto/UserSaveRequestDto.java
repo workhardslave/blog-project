@@ -35,6 +35,10 @@ public class UserSaveRequestDto {
         this.role = role;
     }
 
+    public void encodePassword(String password) {
+        this.password = password;
+    }
+
     @Builder
     public UserSaveRequestDto(String email, String password, String username, RoleType role) {
         this.email = email;
