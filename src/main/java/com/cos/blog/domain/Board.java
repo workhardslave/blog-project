@@ -1,6 +1,8 @@
 package com.cos.blog.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +11,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
 @Entity
 public class Board {
@@ -47,4 +50,12 @@ public class Board {
 
     @CreationTimestamp
     private Timestamp createDate;
+
+    @Builder
+    public Board(String title, String content, int count, User user) {
+        this.title = title;
+        this.content = content;
+        this.count = count;
+        this.user = user;
+    }
 }

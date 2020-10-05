@@ -14,8 +14,8 @@ import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service // 스프링이 컴포넌트 스캔을 통해 Bean에 등록 (IoC)
 @RequiredArgsConstructor // 초기화되지 않은 final 필드나, @NonNull이 붙은 필드에 생성자를 생성
+@Service // 스프링이 컴포넌트 스캔을 통해 Bean에 등록 (IoC)
 public class UserService {
 
     // 어떠한 Bean에 생성자가 오직 하나만 있고, 생성자의 파라미터로 받는 Bean이 존재하면
@@ -42,10 +42,13 @@ public class UserService {
     // 회원가입 로직
     @Transactional
     public int signUp(UserSaveRequestDto dto) {
+
+        System.out.println("UserService : signUp 호출");
         String rawPassword = dto.getPassword();
         String encPassword = encoder.encode(rawPassword);
         dto.giveRole(RoleType.USER); // USER, ADMIN
         dto.encodePassword(encPassword); // 해쉬화 된 비밀번호 저장
+
         return userRepository.save(dto.toEntity()).getId();
     }
 

@@ -39,14 +39,6 @@ public class UserSaveRequestDto {
         this.password = password;
     }
 
-    @Builder
-    public UserSaveRequestDto(String email, String password, String username, RoleType role) {
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.role = role;
-    }
-
     public User toEntity() {
         return User.builder()
                 .email(email)
