@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
+    // 로그인 페이지
     @GetMapping("/auth/signin")
     public String signInForm() {
 
         return "users/signInForm";
     }
 
+    // 회원가입 페이지
     @GetMapping("/auth/signup")
     public String signUpForm() {
 

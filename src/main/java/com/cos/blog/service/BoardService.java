@@ -1,10 +1,13 @@
 package com.cos.blog.service;
 
+import com.cos.blog.domain.Board;
 import com.cos.blog.domain.User;
 import com.cos.blog.dto.BoardResponseDto;
 import com.cos.blog.dto.BoardSaveRequestDto;
 import com.cos.blog.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +30,12 @@ public class BoardService {
         return boardRepository.save(dto.toEntity()).getId();
     }
 
+    // 전체 게시물 가져 오는 로직 (페이징)
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> findAllBoards() {
-        return boardRepository.findAll().stream() // Board 객체를 가져와서
-                .map(BoardResponseDto::new) // BoardResponseDto로 변환 하겠다.
-                .collect(Collectors.toList()); // 바꾼 객체를 모아서 List 형태로 변환 하겠다.
+    public Page<Board> findAllBoards(Pageable pageable) {
+
+        return boardRepository.findAll(pageable);
+
     }
 
 }
