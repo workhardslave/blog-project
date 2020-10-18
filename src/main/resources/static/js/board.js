@@ -1,7 +1,12 @@
 let index = {
+
     init : function () {
         $("#btn-save").on("click", ()=> {
             this.save();
+        });
+
+        $("#btn-delete").on("click", ()=> {
+            this.delete();
         });
     },
 
@@ -25,6 +30,24 @@ let index = {
             console.log(response);
             markingErrorField(response);
         });
+    },
+
+    delete : function () {
+        let id = $("#bid").text();
+        console.log(id);
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/boards/' + id,
+            dataType: 'json'
+        }).done(function () {
+            alert("삭제가 완료되었습니다!");
+            location.href="/";
+        }).fail(function (response) {
+            alert("삭제를 실패했습니다.");
+            console.log(response);
+        });
+
     }
 }
 

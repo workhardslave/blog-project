@@ -38,4 +38,20 @@ public class BoardService {
 
     }
 
+    // 게시글 상세정보 로직
+    @Transactional(readOnly = true)
+    public Board findABoard(int id) {
+
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id : " + id));
+    }
+
+    // 게시글 삭제 로직
+    @Transactional
+    public void deleteABoard(int id) {
+        System.out.println("id = " + id);
+        boardRepository.deleteById(id);
+    }
+    
+    // 게시글 수정 로직
 }

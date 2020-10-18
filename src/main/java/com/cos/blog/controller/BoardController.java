@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RequiredArgsConstructor
 @Controller
@@ -30,5 +31,13 @@ public class BoardController {
     public String writeForm() {
 
         return "boards/writeForm";
+    }
+
+    // 상세정보 페이지
+    @GetMapping("/boards/detail/{id}")
+    public String detailForm(@PathVariable int id, Model model) {
+
+        model.addAttribute("board", boardService.findABoard(id));
+        return "boards/detailForm";
     }
 }

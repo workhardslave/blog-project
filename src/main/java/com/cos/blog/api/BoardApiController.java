@@ -5,9 +5,7 @@ import com.cos.blog.dto.BoardSaveRequestDto;
 import com.cos.blog.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,9 +18,25 @@ public class BoardApiController {
     // 게시글 저장 API
     @PostMapping("/api/boards")
     public int save(@RequestBody @Valid BoardSaveRequestDto dto,
-                    @AuthenticationPrincipal PrincipalDetail principal) {
+                            @AuthenticationPrincipal PrincipalDetail principal) {
 
         System.out.println("BoardApiController : save 호출");
-        return boardService.writeForm(dto, principal.getUser());
+        int id = boardService.writeForm(dto, principal.getUser());
+
+        return id;
+
     }
+
+    // 게시글 삭제 API
+    @DeleteMapping("/api/boards/{id}")
+    public int delete(@PathVariable int id) {
+
+        System.out.println("BoardApiController : delete 호출");
+        boardService.deleteABoard(id);
+
+        return id;
+    }
+
+    // 게시글 수정 API
+//    @PutMapping("/api/boards/{id}")
 }

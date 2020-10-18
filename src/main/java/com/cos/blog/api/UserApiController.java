@@ -3,7 +3,6 @@ package com.cos.blog.api;
 import com.cos.blog.dto.UserSaveRequestDto;
 import com.cos.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +24,9 @@ public class UserApiController {
     public int save(@RequestBody @Valid UserSaveRequestDto dto) { // @Valid 부분에서 유효성 검사가 일어나는듯?, 컨트롤러 안으로 안들어감
 
         System.out.println("UserApiController : save 호출");
-        return userService.signUp(dto);
+        int id = userService.signUp(dto);
+
+        return id;
     }
 
     // 로그인 API(전통적인 방식)
