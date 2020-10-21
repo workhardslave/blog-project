@@ -7,7 +7,7 @@
 <div class="container">
     <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
     <c:if test="${board.user.id == principal.user.id}">
-        <button class="btn btn-warning" id="btn-update">수정</button>
+        <a href="/boards/update/${board.id}" class="btn btn-warning" id="btn-update">수정</a>
         <button class="btn btn-danger" id="btn-delete">삭제</button>
     </c:if>
     <div style="padding-top: 45px; padding-bottom: 30px">

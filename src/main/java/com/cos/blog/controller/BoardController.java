@@ -23,6 +23,7 @@ public class BoardController {
     public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
         model.addAttribute("boards", boardService.findAllBoards(pageable));
+
         return "index";
     }
 
@@ -35,9 +36,20 @@ public class BoardController {
 
     // 상세정보 페이지
     @GetMapping("/boards/detail/{id}")
-    public String detailForm(@PathVariable int id, Model model) {
+    public String detailForm(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetail principal) {
 
         model.addAttribute("board", boardService.findABoard(id));
+        model.addAttribute("principal", principal); // 세션값 전달
+
         return "boards/detailForm";
+    }
+
+    // 글 수정 페이지
+    @GetMapping("/boards/update/{id}")
+    public String updateForm(@PathVariable int id, Model model) {
+
+        model.addAttribute("board", boardService.findABoard(id));
+
+        return "boards/updateForm";
     }
 }

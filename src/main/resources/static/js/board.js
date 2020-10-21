@@ -8,6 +8,10 @@ let index = {
         $("#btn-delete").on("click", ()=> {
             this.delete();
         });
+
+        $("#btn-update").on("click", ()=> {
+           this.update();
+        });
     },
 
     save : function () {
@@ -47,7 +51,28 @@ let index = {
             alert("삭제를 실패했습니다.");
             console.log(response);
         });
+    },
 
+    update : function () {
+        let id = $("#id").val();
+        let data = {
+            title : $("#title").val(),
+            content : $("#content").val()
+        };
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/boards/' + id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert("수정이 완료되었습니다.");
+            location.href="/";
+        }).fail(function (response) {
+            console.log(response);
+            markingErrorField(response);
+        })
     }
 }
 

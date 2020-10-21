@@ -38,5 +38,12 @@ public class BoardApiController {
     }
 
     // 게시글 수정 API
-//    @PutMapping("/api/boards/{id}")
+    @PutMapping("/api/boards/{id}")
+    public int update(@PathVariable int id, @RequestBody @Valid BoardSaveRequestDto dto) {
+
+        System.out.println("BoardApiController : update 호출");
+        int uid = boardService.updateABoard(id, dto);
+
+        return uid;
+    }
 }
