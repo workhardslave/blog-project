@@ -19,7 +19,7 @@ public class PrincipalDetailService implements UserDetailsService {
     // 해당 username(email)이 DB에 있는지만 확인해서 return
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("email : " + email); // 요거 해결
+
         // 람다식
         User principal = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다 : " + email));

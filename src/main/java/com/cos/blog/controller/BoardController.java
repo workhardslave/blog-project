@@ -36,10 +36,11 @@ public class BoardController {
 
     // 상세정보 페이지
     @GetMapping("/boards/detail/{id}")
-    public String detailForm(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetail principal) {
+    public String detailForm(@PathVariable int id,
+                             @AuthenticationPrincipal PrincipalDetail principal, Model model) {
 
         model.addAttribute("board", boardService.findABoard(id));
-        model.addAttribute("principal", principal); // 세션값 전달
+        model.addAttribute("principals", principal); // 세션값 전달
 
         return "boards/detailForm";
     }

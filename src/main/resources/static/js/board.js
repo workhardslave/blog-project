@@ -46,7 +46,7 @@ let index = {
             dataType: 'json'
         }).done(function () {
             alert("삭제가 완료되었습니다!");
-            location.href="/";
+            location.href = "/";
         }).fail(function (response) {
             alert("삭제를 실패했습니다.");
             console.log(response);
@@ -68,7 +68,7 @@ let index = {
             data: JSON.stringify(data)
         }).done(function () {
             alert("수정이 완료되었습니다.");
-            location.href="/";
+            location.href = "/";
         }).fail(function (response) {
             console.log(response);
             markingErrorField(response);

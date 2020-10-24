@@ -1,11 +1,10 @@
 package com.cos.blog.api;
 
 import com.cos.blog.dto.UserSaveRequestDto;
+import com.cos.blog.dto.UserUpdateRequestDto;
 import com.cos.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -29,7 +28,18 @@ public class UserApiController {
         return id;
     }
 
-    // 로그인 API(전통적인 방식)
+    // 회원 정보 수정 API
+    @PutMapping("/api/users/{id}")
+    public int update(@PathVariable int id, @RequestBody @Valid UserUpdateRequestDto dto) {
+
+        System.out.println("UserApiController : update 호출");
+        int uid = userService.updateUser(id, dto);
+
+        return uid;
+    }
+}
+
+// 로그인 API(전통적인 방식)
    /* @PostMapping("/api/users/signin")
     public int login(@RequestBody User user, HttpSession session) {
 
@@ -43,4 +53,3 @@ public class UserApiController {
         return principal.getId();
 
     }*/
-}
