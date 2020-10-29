@@ -16,21 +16,16 @@
 
 
         <ul class="pagination justify-content-center">
-            <li th:if="${boards.first}" class="page-item disabled">
+            <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">
                 <a class="page-link" th:href="@{/(page = ${boards.number} - 1)}">Previous</a>
             </li>
 
-            <li th:unless="${boards.first}" class="page-item">
-                <a class="page-link" th:href="@{/(page = ${boards.number} - 1)}">Previous</a>
+            <li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}"
+                th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'">
+                <a class="page-link" th:text="${i}" th:href="@{/(page = ${i - 1})}">1</a>
             </li>
 
-            <!-- 페이지 블록 나중에 추가하기 -->
-
-            <li th:if="${boards.last}" class="page-item disabled">
-                <a class="page-link" th:href="@{/(page = ${boards.number} + 1)}">Next</a>
-            </li>
-
-            <li th:unless="${boards.last}" class="page-item">
+            <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
                 <a class="page-link" th:href="@{/(page = ${boards.number} + 1)}">Next</a>
             </li>
         </ul>
