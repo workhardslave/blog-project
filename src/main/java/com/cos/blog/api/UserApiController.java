@@ -1,9 +1,14 @@
 package com.cos.blog.api;
 
+import com.cos.blog.domain.User;
 import com.cos.blog.dto.UserSaveRequestDto;
 import com.cos.blog.dto.UserUpdateRequestDto;
 import com.cos.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +20,8 @@ public class UserApiController {
 
     // DI
     private final UserService userService;
+
+    private final AuthenticationManager authenticationManager;
 
 //    private final HttpSession session;
 
@@ -34,6 +41,10 @@ public class UserApiController {
 
         System.out.println("UserApiController : update 호출");
         int uid = userService.updateUser(id, dto);
+
+        // 세션 수정
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return uid;
     }
