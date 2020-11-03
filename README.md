@@ -3,6 +3,7 @@
 - JPA
 - Thymeleaf
 - Spring Security
-- OAuth 2.0 (적용 예정 : 구글, 페이스북(?), 카카오, 네이버)
+- 카카오 로그인 (직접 구현)
+- 구글, 네이버 로그인 (적용 예정 : OAuth 라이브러리 사용)
 - AWS 배포 (적용 예정 : EC2, RDS)
 - CI/CD (적용 예정 : Travis(?), CodeDeploy)
