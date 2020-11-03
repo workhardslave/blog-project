@@ -1,6 +1,5 @@
 package com.cos.blog.api;
 
-import com.cos.blog.domain.User;
 import com.cos.blog.dto.UserSaveRequestDto;
 import com.cos.blog.dto.UserUpdateRequestDto;
 import com.cos.blog.service.UserService;
@@ -11,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
@@ -20,10 +18,7 @@ public class UserApiController {
 
     // DI
     private final UserService userService;
-
     private final AuthenticationManager authenticationManager;
-
-//    private final HttpSession session;
 
     // 회원가입 API
     @PostMapping("/auth/api/signup")
@@ -51,6 +46,9 @@ public class UserApiController {
 }
 
 // 로그인 API(전통적인 방식)
+
+//    private final HttpSession session;
+
    /* @PostMapping("/api/users/signin")
     public int login(@RequestBody User user, HttpSession session) {
 

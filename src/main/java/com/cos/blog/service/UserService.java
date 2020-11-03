@@ -45,12 +45,22 @@ public class UserService {
     public int signUp(UserSaveRequestDto dto) {
 
         System.out.println("UserService : signUp 호출");
+        System.out.println("rawPassword : " + dto.getPassword());
         String rawPassword = dto.getPassword();
         String encPassword = encoder.encode(rawPassword);
         dto.giveRole(RoleType.USER); // USER, ADMIN
         dto.encodePassword(encPassword); // 해쉬화 된 비밀번호 저장
 
         return userRepository.save(dto.toEntity()).getId();
+    }
+
+    // 회원찾기 로직
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> new User());
+
+        return user;
     }
 
     // 회원수정 로직
@@ -63,15 +73,16 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. : " + id));
 
-        String rawPassword = dto.getPassword();
-        String encPassword = encoder.encode(rawPassword);
-
-        user.updateUser(dto.getEmail(), encPassword);
+        // 일반 사용자만 이메일, 패스워드 변경
+        if(user.getOauth() == null || user.getOauth().equals("")) {
+            String rawPassword = dto.getPassword();
+            String encPassword = encoder.encode(rawPassword);
+            user.updateUser(dto.getEmail(), encPassword);
+        }
 
         return user.getId();
 
     }
-
 
 }
 

@@ -31,6 +31,8 @@ public class UserSaveRequestDto {
 
     private RoleType role;
 
+    private String oauth;
+
     public void giveRole(RoleType role) {
         this.role = role;
     }
@@ -39,12 +41,20 @@ public class UserSaveRequestDto {
         this.password = password;
     }
 
+    public void getKakaoInfo(String email, String password, String username, String oauth) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.oauth = oauth;
+    }
+
     public User toEntity() {
         return User.builder()
                 .email(email)
                 .password(password)
                 .username(username)
                 .role(role)
+                .oauth(oauth)
                 .build();
     }
 }

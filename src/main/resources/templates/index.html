@@ -16,7 +16,7 @@
 
 
         <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">
+            <li class="page-item" th:classappend="${boards.first} ? 'disabled'">
                 <a class="page-link" th:href="@{/(page = ${boards.number} - 1)}">Previous</a>
             </li>
 
@@ -25,7 +25,7 @@
                 <a class="page-link" th:text="${i}" th:href="@{/(page = ${i - 1})}">1</a>
             </li>
 
-            <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
+            <li class="page-item" th:classappend="${boards.last} ? 'disabled'">
                 <a class="page-link" th:href="@{/(page = ${boards.number} + 1)}">Next</a>
             </li>
         </ul>

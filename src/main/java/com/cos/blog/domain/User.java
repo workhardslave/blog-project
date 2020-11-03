@@ -26,6 +26,7 @@ public class User {
     @Column(nullable = false, length = 30)
     private String username;
 
+    private String oauth; // KAKAO, GOOGLE
 
 //    @ColumnDefault(("'user'"))
     // DB는 RoleType 타입이 없으므로 String이라는 것을 명시
@@ -39,11 +40,12 @@ public class User {
 //    private Timestamp updateDate;
 
     @Builder
-    public User(String email, String password, String username, RoleType role) {
+    public User(String email, String password, String username, RoleType role, String oauth) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.role = role;
+        this.oauth = oauth;
     }
 
     public void updateUser(String email, String password) {

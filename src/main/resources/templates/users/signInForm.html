@@ -21,6 +21,9 @@
                     </label>
                 </div>
                 <button type="submit" class="btn btn-primary" id="btn-login">로그인</button>
+                <a th:href="@{https://kauth.kakao.com/oauth/authorize(client_id = ${client_id}, redirect_uri = ${redirect_uri}, response_type = ${response_type})}">
+                    <img height="38px" src="/image/kakao_login_button.png"/>
+                </a>
             </form>
 
         </div>
