@@ -10,9 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @RequiredArgsConstructor
 @Service
 public class BoardService {
+
+    private static final int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
 
     private final BoardRepository boardRepository;
 
@@ -32,6 +36,25 @@ public class BoardService {
 
         return boardRepository.findAll(pageable);
 
+    }
+
+    // 페이징 블록 계산 로직
+    public ArrayList<Integer> getPagingBlock(Page<Board> boards) {
+
+        int tmp = boards.getPageable().getPageNumber() / BLOCK_PAGE_NUM_COUNT + 1;
+        int startPage = (tmp - 1) * BLOCK_PAGE_NUM_COUNT + 1;  // 블록 시작 번호 : 1, 6, 11 ...
+        int endPage = (boards.getTotalPages() == 0) ? 1
+                : Math.min(boards.getTotalPages(), tmp * BLOCK_PAGE_NUM_COUNT); // 블록 끝 번호 : 5, 10, 15 ...
+
+        System.out.println("tmp : " + tmp);
+        System.out.println("s : " + startPage);
+        System.out.println("e : " + endPage);
+
+        ArrayList<Integer> block = new ArrayList<>();
+        block.add(startPage);
+        block.add(endPage);
+
+        return block;
     }
 
     // 게시글 상세정보 로직

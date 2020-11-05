@@ -34,7 +34,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class UserController {
 
-    private static final String KAKAO_CLIENT_KEY = "00d6dae4c62eeaa9f117a7f80be12a62";
+    private static final String KAKAO_CLIENT_KEY = "4999c575b42bbae7bf0efed3ff8a94be";
     private static final String KAKAO_REDIRECT_URI = "http://localhost:8000/auth/kakao/callback";
     private static final String KAKAO_RESPONSE_TYPE = "code";
     private static final String KAKAO_TOKEN_REQUEST = "https://kauth.kakao.com/oauth/token";
