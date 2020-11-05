@@ -28,4 +28,10 @@ public class Reply {
 
     @CreationTimestamp
     private Timestamp createDate;
+
+    public void saveReply(Board board, User user, String content) {
+        this.board = board;
+        this.user = user;
+        this.content = content;
+    }
 }

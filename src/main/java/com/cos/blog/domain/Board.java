@@ -1,5 +1,6 @@
 package com.cos.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,7 +46,13 @@ public class Board {
     * */
 
     // JoinColumn을 하지 않았음 : 원자성 원칙이 깨지기 때문에
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // mappedBy : 연관관계의 주인이 아니다. (난 FK가 아니야~, DB에 컬럼 만들지마~)
+    // mappedBy : 연관관계의 주인이 아니다. (난 FK가 아니야~, DB에 컬럼 만들지마~)
+    // FetchType.EAGER : 엔티티를 조회할 때 연관된 엔티티도 함께 조회, FetchType.LAZY : 엔티티를 조회할 때 연관된 엔티티를 실제 사용할 때 조회
+    // cascadeType.REMOVE : 엔티티를 삭제시 연관된 엔티티도 같이 삭제
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    // Board가 호출되어 Reply를 가져올 때, Reply 안에 있는 Board를 가져오지 않게 설정 : 무한 참조 방지
+    @JsonIgnoreProperties({"board"}) // JSON으로 파싱을 하지 않는다.
+    @OrderBy("id DESC")
     private List<Reply> reply;
 
     @CreationTimestamp

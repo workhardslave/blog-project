@@ -1,8 +1,8 @@
 package com.cos.blog.domain;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class KakaoProfile {
 
     private Integer id;
@@ -10,12 +10,12 @@ public class KakaoProfile {
     private Properties properties;
     private KakaoAccount kakao_account;
 
-    @Data
+    @Getter
     public class Properties {
         private String nickname;
     }
 
-    @Data
+    @Getter
     public class KakaoAccount {
 
         private Boolean profile_needs_agreement;
@@ -26,7 +26,7 @@ public class KakaoProfile {
         private Boolean is_email_verified;
         private String email;
 
-        @Data
+        @Getter
         public class Profile {
             private String nickname;
         }

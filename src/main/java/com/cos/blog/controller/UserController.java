@@ -34,7 +34,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class UserController {
 
-    private static final String KAKAO_CLIENT_KEY = "{client_key 입력}";
+    private static final String KAKAO_CLIENT_KEY = "00d6dae4c62eeaa9f117a7f80be12a62";
     private static final String KAKAO_REDIRECT_URI = "http://localhost:8000/auth/kakao/callback";
     private static final String KAKAO_RESPONSE_TYPE = "code";
     private static final String KAKAO_TOKEN_REQUEST = "https://kauth.kakao.com/oauth/token";
@@ -122,7 +122,7 @@ public class UserController {
         headers2.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
         headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        // HeadHeader와 HttpBody를 하나의 오브젝트에 담기
+        // HeadHeader를 하나의 오브젝트에 담기
         HttpEntity<MultiValueMap<String ,String>> kakaoProfileRequest = new HttpEntity<>(headers2);
 
         // Http 요청 - POST 방식 - Response 변수의 응답 받음
@@ -144,11 +144,12 @@ public class UserController {
             e.printStackTrace();
         }
 
-        // User 오브젝트 : email, password, username
+        // 카카오에서 뽑아올 내용
         System.out.println("카카오 시퀀스 번호 : " + kakaoProfile.getId());
         System.out.println("카카오 이메일 : " + kakaoProfile.getKakao_account().getEmail());
         System.out.println("카카오 닉네임 : " + kakaoProfile.getKakao_account().getProfile().getNickname());
 
+        // 블로그 서버에 저장할 내용
         System.out.println("블로그 서버 이메일 : " + kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId());
         System.out.println("블로그 서버 패스워드 : " + cosKey);
         System.out.println("블로그 서버 닉네임 : " + kakaoProfile.getKakao_account().getProfile().getNickname());
@@ -164,12 +165,13 @@ public class UserController {
         // 가입자 혹은 비가입자 체크 해서 처리
         User user = userService.findByEmail(kakaoDto.getEmail());
 
-
+        // 빈 객체를 가져오는 경우 == 신규 회원
         if(user.getEmail() == null) {
             System.out.println("새로운 회원 : 회원가입 처리");
             userService.signUp(kakaoDto);
         }
-        // 로그인 처리
+
+        // 자동 로그인 처리
         System.out.println("자동 로그인 처리");
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoDto.getEmail(), cosKey));
         SecurityContextHolder.getContext().setAuthentication(authentication);

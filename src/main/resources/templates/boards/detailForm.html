@@ -13,7 +13,7 @@
             </span>
             <div style="padding-top: 45px; padding-bottom: 30px">
                 글 번호 : <b><span id="bid" th:text="${board.id}"></span></b><br/>
-                작성자 : <b><span th:text="${board.user.email}"></span></b>
+                작성자 : <b><span th:text="${board.user.username}"></span></b>
             </div>
             <div class="form-group">
                 <h3 th:text="${board.title}"></h3>
@@ -23,10 +23,40 @@
                 <div th:utext="${board.content}"></div>
             </div>
             <hr/>
+
+            <!-- 댓글창 디자인 -->
+            <div class="card" style="margin-top: 40px">
+                <form>
+                    <input type="hidden" id="boardId" th:value="${board.id}">
+                    <input type="hidden" id="userId" th:value="${principals.user.id}">
+                    <div class="card-body">
+                        <textarea id="reply-content" class="form-control" rows="1"></textarea>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card" style="margin-top: 25px">
+                <div class="card-header"><b>댓글 목록</b></div>
+                <ul th:each="reply : ${board.reply}" id="reply-box" class="list-group">
+                    <!-- 안에 div 태그가 2개일때, 양 옆으로 두고 싶을 경우 -->
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div th:text="${reply.content}"/>
+                        <div class="d-flex">
+                            <div class="font-italic" th:text="'작성자 : ' + ${reply.user.username} + '&nbsp'"/>
+                            <button th:id="${reply.id}" th:data-idx="${board.id}"
+                                    onclick="index.deleteReply(this.id, this.getAttribute('data-idx'))" class="badge">삭제</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
         </div>
 
         <script src="/js/board.js"></script>
-
+        <script src="/js/error.js"></script>
         <footer th:replace="layout/footer :: footerFragment"/>
     </body>
 </html>
