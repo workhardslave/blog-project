@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class UserResponseDto {
 
-    private int id;
+    private Long id;
     private String email;
     private String username;
     private String password;

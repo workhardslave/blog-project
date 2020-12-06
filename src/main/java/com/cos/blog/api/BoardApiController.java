@@ -17,11 +17,11 @@ public class BoardApiController {
 
     // 게시글 저장 API
     @PostMapping("/api/boards")
-    public int save(@RequestBody @Valid BoardSaveRequestDto dto,
+    public Long save(@RequestBody @Valid BoardSaveRequestDto dto,
                             @AuthenticationPrincipal PrincipalDetail principal) {
 
         System.out.println("BoardApiController : save 호출");
-        int id = boardService.writeForm(dto, principal.getUser());
+        Long id = boardService.writeForm(dto, principal.getUser());
 
         return id;
 
@@ -29,7 +29,7 @@ public class BoardApiController {
 
     // 게시글 삭제 API
     @DeleteMapping("/api/boards/{id}")
-    public int delete(@PathVariable int id) {
+    public Long delete(@PathVariable Long id) {
 
         System.out.println("BoardApiController : delete 호출");
         boardService.deleteABoard(id);
@@ -39,10 +39,10 @@ public class BoardApiController {
 
     // 게시글 수정 API
     @PutMapping("/api/boards/{id}")
-    public int update(@PathVariable int id, @RequestBody @Valid BoardSaveRequestDto dto) {
+    public Long update(@PathVariable Long id, @RequestBody @Valid BoardSaveRequestDto dto) {
 
         System.out.println("BoardApiController : update 호출");
-        int uid = boardService.updateABoard(id, dto);
+        Long uid = boardService.updateABoard(id, dto);
 
         return uid;
     }

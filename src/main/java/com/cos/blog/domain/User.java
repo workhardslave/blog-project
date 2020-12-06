@@ -15,7 +15,7 @@ public class User {
 
     @Id // PK
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB의 넘버링 전략을 따라감
-    private int id; // sequence, auto_increment
+    private Long id; // sequence, auto_increment
 
     @Column(nullable = false, length = 50, unique = true)
     private String email;
@@ -26,31 +26,32 @@ public class User {
     @Column(nullable = false, length = 30)
     private String username;
 
-    private String oauth; // KAKAO, GOOGLE
-
 //    @ColumnDefault(("'user'"))
     // DB는 RoleType 타입이 없으므로 String이라는 것을 명시
     @Enumerated(EnumType.STRING)
     private RoleType role; // USER, ADMIN
 
-    @CreationTimestamp // 시간이 자동으로 입력
-    private Timestamp createDate;
+    private String provider;
 
-//    @UpdateTimestamp
-//    private Timestamp updateDate;
+    private String providerId;
 
     @Builder
-    public User(String email, String password, String username, RoleType role, String oauth) {
+    public User(String email, String password, String username, RoleType role, String provider, String providerId) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.role = role;
-        this.oauth = oauth;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
     public void updateUser(String email, String password) {
         this.email=email;
         this.password=password;
+    }
+
+    public String getRoleValue() {
+        return this.role.getValue();
     }
 
 }

@@ -15,17 +15,17 @@ public class ReplyApiController {
 
     // 댓글 저장 API
     @PostMapping("/api/replies")
-    public int save(@RequestBody @Valid ReplySaveRequestDto dto) {
+    public Long save(@RequestBody @Valid ReplySaveRequestDto dto) {
 
         System.out.println("ReplyApiController : save 호출");
-        int id = replyService.writeComment(dto);
+        Long id = replyService.writeComment(dto);
 
         return id;
 
     }
 
     @DeleteMapping("/api/replies/{id}")
-    public int delete(@PathVariable int id) {
+    public Long delete(@PathVariable Long id) {
 
         System.out.println("ReplyApiController : remove 호출");
         replyService.deleteComment(id);

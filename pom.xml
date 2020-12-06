@@ -20,36 +20,22 @@
 
 	<dependencies>
 
-		<!-- 추가 디펜던시-->
-		<!-- 시큐리티 태그 라이브러리 -->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.security</groupId>-->
-<!--			<artifactId>spring-security-taglibs</artifactId>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
 
-		<!-- 타임리프 디펜던시 -->
+		<!-- Thymeleaf Dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-<!--		&lt;!&ndash; JSP 템플릿 엔진 &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>org.apache.tomcat.embed</groupId>-->
-<!--			<artifactId>tomcat-embed-jasper</artifactId>-->
-<!--		</dependency>-->
-
-<!--		&lt;!&ndash; JSTL &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>javax.servlet</groupId>-->
-<!--			<artifactId>jstl</artifactId>-->
-<!--		</dependency>-->
-		<!--추가 디펜던시 끝-->
+		<!-- OAuth2 Client Dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

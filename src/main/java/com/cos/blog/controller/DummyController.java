@@ -32,7 +32,6 @@ public class DummyController {
         System.out.println("password = " + user.getPassword());
         System.out.println("email = " + user.getEmail());
         System.out.println("role = " + user.getRole());
-        System.out.println("createDate = " + user.getCreateDate());
 
         userRepository.save(user);
         return "회원가입 완료!";
@@ -41,7 +40,7 @@ public class DummyController {
     // {id} 주소로 파라미터를 전달 받을 수 있음
     // http://localhost:8000/blog/dummy/users/3
     @GetMapping("dummy/users/{id}")
-    public User detail(@PathVariable int id) { // {}안에 있는 변수와 같은 걸로 선언 해줘야 함
+    public User detail(@PathVariable Long id) { // {}안에 있는 변수와 같은 걸로 선언 해줘야 함
 
         // 만약 user/4를 찾으면 내가 DB에서 못찾으면 null이 뜨잖아
         // 그럼 return null이 되잖아? ... 좋지 못해 ㅠ.ㅠ
@@ -94,7 +93,7 @@ public class DummyController {
     @Transactional // 함수 종료시에 자동 commit
     @PutMapping("/dummy/users/{id}")
     // @ReqeustBody : JSON 데이터 요청 -> Java Object(Message Converter의 Jackson 라이브러리가 변환해줌)
-    public User updateUser(@PathVariable int id, @RequestBody User userRequest) {
+    public User updateUser(@PathVariable Long id, @RequestBody User userRequest) {
         System.out.println("id = " + id);
         System.out.println("userRequest.getEmail() = " + userRequest.getEmail());
         System.out.println("userRequest.getPassword() = " + userRequest.getPassword());
@@ -113,7 +112,7 @@ public class DummyController {
 
     // http://localhost:8000/blog/dummy/users/1
     @DeleteMapping("dummy/users/{id}")
-    public String delete(@PathVariable int id) {
+    public String delete(@PathVariable Long id) {
 
         try {
             userRepository.deleteById(id);

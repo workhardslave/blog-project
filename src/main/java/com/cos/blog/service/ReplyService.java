@@ -32,7 +32,7 @@ public class ReplyService {
 
     // 댓글 저장 로직
     @Transactional
-    public int writeComment(ReplySaveRequestDto dto) {
+    public Long writeComment(ReplySaveRequestDto dto) {
 
         Board board = boardRepository.findById(dto.getBid())
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id : " + dto.getUid()));
@@ -48,7 +48,7 @@ public class ReplyService {
 
     // 댓글 삭제 로직
     @Transactional
-    public void deleteComment(int id) {
+    public void deleteComment(Long id) {
 
         System.out.println("id : " + id);
         replyRepository.deleteById(id);

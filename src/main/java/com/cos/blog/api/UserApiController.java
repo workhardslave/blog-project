@@ -22,20 +22,20 @@ public class UserApiController {
 
     // 회원가입 API
     @PostMapping("/auth/api/signup")
-    public int save(@RequestBody @Valid UserSaveRequestDto dto) { // @Valid 부분에서 유효성 검사가 일어나는듯?, 컨트롤러 안으로 안들어감
+    public Long save(@RequestBody @Valid UserSaveRequestDto dto) { // @Valid 부분에서 유효성 검사가 일어나는듯?, 컨트롤러 안으로 안들어감
 
         System.out.println("UserApiController : save 호출");
-        int id = userService.signUp(dto);
+        Long id = userService.signUp(dto);
 
         return id;
     }
 
     // 회원 정보 수정 API
     @PutMapping("/api/users/{id}")
-    public int update(@PathVariable int id, @RequestBody @Valid UserUpdateRequestDto dto) {
+    public Long update(@PathVariable Long id, @RequestBody @Valid UserUpdateRequestDto dto) {
 
         System.out.println("UserApiController : update 호출");
-        int uid = userService.updateUser(id, dto);
+        Long uid = userService.updateUser(id, dto);
 
         // 세션 수정
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));

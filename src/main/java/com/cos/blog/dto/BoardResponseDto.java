@@ -8,14 +8,14 @@ import lombok.Getter;
 @Getter
 public class BoardResponseDto {
 
-    private int id;
+    private Long id;
     private String title;
     private String content;
     private int count;
     private User user;
 
     @Builder
-    public BoardResponseDto(int id, String title, String content, int count, User user) {
+    public BoardResponseDto(Long id, String title, String content, int count, User user) {
         this.id = id;
         this.title = title;
         this.content = content;

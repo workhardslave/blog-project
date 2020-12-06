@@ -42,7 +42,7 @@ public class UserService {
 
     // 회원가입 로직
     @Transactional
-    public int signUp(UserSaveRequestDto dto) {
+    public Long signUp(UserSaveRequestDto dto) {
 
         System.out.println("UserService : signUp 호출");
         System.out.println("rawPassword : " + dto.getPassword());
@@ -65,7 +65,7 @@ public class UserService {
 
     // 회원수정 로직
     @Transactional
-    public int updateUser(int id, UserUpdateRequestDto dto) {
+    public Long updateUser(Long id, UserUpdateRequestDto dto) {
 
         System.out.println("UserService : updateUser 호출");
 
@@ -74,7 +74,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. : " + id));
 
         // 일반 사용자만 이메일, 패스워드 변경
-        if(user.getOauth() == null || user.getOauth().equals("")) {
+        if(user.getProvider() == null || user.getProvider().equals("")) {
             String rawPassword = dto.getPassword();
             String encPassword = encoder.encode(rawPassword);
             user.updateUser(dto.getEmail(), encPassword);

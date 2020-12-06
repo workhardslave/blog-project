@@ -45,7 +45,7 @@ public class BoardController {
 
     // 상세정보 페이지
     @GetMapping("/boards/detail/{id}")
-    public String detailForm(@PathVariable int id,
+    public String detailForm(@PathVariable Long id,
                              @AuthenticationPrincipal PrincipalDetail principal, Model model) {
 
         model.addAttribute("board", boardService.findABoard(id));
@@ -56,7 +56,7 @@ public class BoardController {
 
     // 글 수정 페이지
     @GetMapping("/boards/update/{id}")
-    public String updateForm(@PathVariable int id, Model model) {
+    public String updateForm(@PathVariable Long id, Model model) {
 
         model.addAttribute("board", boardService.findABoard(id));
 

@@ -22,7 +22,7 @@ public class BoardService {
 
     // 게시글 저장 로직
     @Transactional
-    public int writeForm(BoardSaveRequestDto dto, User user) {
+    public Long writeForm(BoardSaveRequestDto dto, User user) {
 
         System.out.println("BoardService : writeForm 호출");
         dto.giveUser(user);
@@ -59,7 +59,7 @@ public class BoardService {
 
     // 게시글 상세정보 로직
     @Transactional(readOnly = true)
-    public Board findABoard(int id) {
+    public Board findABoard(Long id) {
 
         return boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id : " + id));
@@ -67,14 +67,14 @@ public class BoardService {
 
     // 게시글 삭제 로직
     @Transactional
-    public void deleteABoard(int id) {
+    public void deleteABoard(Long id) {
         System.out.println("id = " + id);
         boardRepository.deleteById(id);
     }
     
     // 게시글 수정 로직
     @Transactional
-    public int updateABoard(int id, BoardSaveRequestDto dto) {
+    public Long updateABoard(Long id, BoardSaveRequestDto dto) {
 
         // 영속화
         Board board =  boardRepository.findById(id)

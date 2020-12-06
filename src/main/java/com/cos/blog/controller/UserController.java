@@ -1,30 +1,14 @@
 package com.cos.blog.controller;
 
 import com.cos.blog.config.auth.PrincipalDetail;
-import com.cos.blog.domain.KakaoProfile;
-import com.cos.blog.domain.OAuthToken;
-import com.cos.blog.domain.User;
-import com.cos.blog.dto.UserSaveRequestDto;
 import com.cos.blog.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.client.RestTemplate;
 
 // 인증이 안된 사용자들이 출입할 수 있는 경로를 /auth/** 허용
 // 그냥 주소가 / 이면 index.jsp 허용
@@ -34,27 +18,13 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class UserController {
 
-    private static final String KAKAO_REDIRECT_URI = "http://localhost:8000/auth/kakao/callback";
-    private static final String KAKAO_RESPONSE_TYPE = "code";
-    private static final String KAKAO_TOKEN_REQUEST = "https://kauth.kakao.com/oauth/token";
-    private static final String KAKAO_PROFILE_REQUEST = "https://kapi.kakao.com/v2/user/me";
-
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-
-    @Value("${cos.key}")
-    private String cosKey;
-
-    @Value("${kakao-client.key}")
-    private String KAKAO_CLIENT_KEY;
 
     // 로그인 페이지
     @GetMapping("/auth/signin")
     public String signInForm(Model model) {
 
-        model.addAttribute("client_id", KAKAO_CLIENT_KEY);
-        model.addAttribute("redirect_uri", KAKAO_REDIRECT_URI);
-        model.addAttribute("response_type", KAKAO_RESPONSE_TYPE);
         return "users/signInForm";
     }
 
@@ -73,6 +43,20 @@ public class UserController {
 
         return "users/updateForm";
     }
+
+
+}
+
+    /*private static final String KAKAO_REDIRECT_URI = "http://localhost:8000/auth/kakao/callback";
+    private static final String KAKAO_RESPONSE_TYPE = "code";
+    private static final String KAKAO_TOKEN_REQUEST = "https://kauth.kakao.com/oauth/token";
+    private static final String KAKAO_PROFILE_REQUEST = "https://kapi.kakao.com/v2/user/me";
+
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+
+    @Value("${kakao-client.key}")
+    private String KAKAO_CLIENT_KEY;
 
     // 카카오 로그인 Callback
     @GetMapping("/auth/kakao/callback")
@@ -179,7 +163,4 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return "redirect:/";
-    }
-
-
-}
+    }*/

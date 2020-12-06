@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class BoardSaveRequestDto {
 
-    private int id;
+    private Long id;
 
     @NotBlank(message = "제목을 입력해주세요.")
     private String title;

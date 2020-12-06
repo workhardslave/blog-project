@@ -1,6 +1,7 @@
 package com.cos.blog.config;
 
 import com.cos.blog.config.auth.PrincipalDetailService;
+import com.cos.blog.config.oauth.PrincipalOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PrincipalDetailService principalDetailService;
+    private final PrincipalOAuth2UserService principalOauth2UserService;
 
     @Override @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -58,6 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
                 .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+            .and()
+                .oauth2Login()
+                .loginPage("/auth/signin")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
     }
 }

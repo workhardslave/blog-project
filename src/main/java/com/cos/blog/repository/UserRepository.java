@@ -9,10 +9,14 @@ import java.util.Optional;
 // DAO
 // 자동으로 bean 등록이 된다.
 // @Repository 생략 가능
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     // SELECT * FROM User WHERE email = 1?;
     Optional<User> findByEmail(String email);
+
+    // 임시 찾기용
+    @Query(value = "SELECT * FROM User WHERE email = ?1", nativeQuery = true)
+    User findByEmail2(String email);
 
 }
 

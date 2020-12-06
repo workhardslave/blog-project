@@ -23,7 +23,9 @@ public class PrincipalDetailService implements UserDetailsService {
         // 람다식
         User principal = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다 : " + email));
+
         System.out.println("principal.getEmail() = " + principal.getEmail());
+
         return new PrincipalDetail(principal); // 시큐리티의 세션에 유저 정보가 저장이 된다.
     }
 }
