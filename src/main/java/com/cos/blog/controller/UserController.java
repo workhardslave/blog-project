@@ -34,7 +34,6 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class UserController {
 
-    private static final String KAKAO_CLIENT_KEY = "4999c575b42bbae7bf0efed3ff8a94be";
     private static final String KAKAO_REDIRECT_URI = "http://localhost:8000/auth/kakao/callback";
     private static final String KAKAO_RESPONSE_TYPE = "code";
     private static final String KAKAO_TOKEN_REQUEST = "https://kauth.kakao.com/oauth/token";
@@ -45,6 +44,9 @@ public class UserController {
 
     @Value("${cos.key}")
     private String cosKey;
+
+    @Value("${kakao-client.key}")
+    private String KAKAO_CLIENT_KEY;
 
     // 로그인 페이지
     @GetMapping("/auth/signin")
