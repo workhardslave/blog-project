@@ -30,7 +30,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         # 테이블을 만들 때 엔티티 변수명을 그대로 쓴다.
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -50,8 +50,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 416219118541-e1hccov8r7q805vslrtok88igofgaudk.apps.googleusercontent.com
-            client-secret: jFibQRPElqADZSnVnxvRVhiW
+            client-id: 416219118541-su72s337gtj940h2b0dsfk8cru4r7ev4.apps.googleusercontent.com
+            client-secret: hb30DU-nEvYPWCP7fQBr95bC
             scope:
               - email
               - profile

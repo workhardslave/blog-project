@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
@@ -24,9 +25,11 @@ public class BoardController {
 
     // 메인 페이지 : /WEB-INF/views/index.jsp
     @GetMapping({"", "/"})
-    public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String index(Model model, @RequestParam(required = false, defaultValue = "") String category,
+                        @RequestParam(required = false, defaultValue = "") String searchText,
+                        @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<Board> boards = boardService.findAllBoards(pageable);
+        Page<Board> boards = boardService.findAllBoards(category, searchText, pageable);
         ArrayList block = boardService.getPagingBlock(boards);
 
         model.addAttribute("startPage", block.get(0));

@@ -17,18 +17,30 @@
 
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${boards.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/(page = ${boards.number} - 1)}">Previous</a>
+                <a class="page-link" th:href="@{/(page = ${boards.number - 1},
+                category = ${param.category}, searchText = ${param.searchText})}">Previous</a>
             </li>
 
             <li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}"
                 th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'">
-                <a class="page-link" th:text="${i}" th:href="@{/(page = ${i - 1})}">1</a>
+                <a class="page-link" th:text="${i}" th:href="@{/(page = ${i - 1},
+                category = ${param.category}, searchText = ${param.searchText})}">1</a>
             </li>
 
             <li class="page-item" th:classappend="${boards.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/(page = ${boards.number} + 1)}">Next</a>
+                <a class="page-link" th:href="@{/(page = ${boards.number + 1},
+                category = ${param.category}, searchText = ${param.searchText})}">Next</a>
             </li>
         </ul>
+
+        <form class="form-inline justify-content-center" method="get" th:action="@{/}">
+            <select class="form-control" id="category" name="category">
+                <option>제목</option>
+                <option>내용</option>
+            </select>
+            <input type="text" class="form-control" id="searchText" name="searchText" style="margin-right: 10px">
+            <button type="submit" class="btn btn-primary">검색</button>
+        </form>
 
         <footer th:replace="layout/footer :: footerFragment"/>
     </body>

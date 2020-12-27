@@ -32,10 +32,17 @@ public class BoardService {
 
     // 전체 게시물 가져 오는 로직 (페이징)
     @Transactional(readOnly = true)
-    public Page<Board> findAllBoards(Pageable pageable) {
+    public Page<Board> findAllBoards(String category, String searchText, Pageable pageable) {
+
+        if(category.equals("제목")) {
+            return boardRepository.findByTitleContaining(searchText, pageable);
+        }
+
+        if(category.equals("내용")) {
+            return boardRepository.findByContentContaining(searchText, pageable);
+        }
 
         return boardRepository.findAll(pageable);
-
     }
 
     // 페이징 블록 계산 로직
