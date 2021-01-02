@@ -26,12 +26,21 @@ public class UserService {
 
         System.out.println("UserService : signUp 호출");
         System.out.println("rawPassword : " + dto.getPassword());
-        String rawPassword = dto.getPassword();
-        String encPassword = encoder.encode(rawPassword);
-        dto.giveRole(RoleType.USER); // USER, ADMIN
-        dto.encodePassword(encPassword); // 해쉬화 된 비밀번호 저장
 
-        return userRepository.save(dto.toEntity()).getId();
+        // 이메일 중복 체크
+        User user = userRepository.findByEmail2(dto.getEmail());
+
+        // 신규 이메일인 경우
+        if(user == null) {
+            String rawPassword = dto.getPassword();
+            String encPassword = encoder.encode(rawPassword);
+            dto.giveRole(RoleType.USER); // USER, ADMIN
+            dto.encodePassword(encPassword); // 해쉬화 된 비밀번호 저장
+
+            return userRepository.save(dto.toEntity()).getId();
+        }
+
+        return -1L;
     }
 
     // 회원찾기 로직
