@@ -1,10 +1,13 @@
 package com.cos.blog.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+
 
 //@DynamicInsert // insert할 때 null인 필드 제외
 @NoArgsConstructor

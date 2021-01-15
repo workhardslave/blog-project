@@ -3,6 +3,8 @@ package com.cos.blog.controller;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.domain.Board;
 import com.cos.blog.service.BoardService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
+@Api(description = "게시글 Controller")
 @RequiredArgsConstructor
 @Controller
 public class BoardController {
@@ -24,6 +27,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 메인 페이지 : /WEB-INF/views/index.jsp
+    @ApiOperation(value = "메인(홈) 페이지", notes = "메인(홈) 페이지로 이동합니다.")
     @GetMapping({"", "/"})
     public String index(Model model, @RequestParam(required = false, defaultValue = "") String category,
                         @RequestParam(required = false, defaultValue = "") String searchText,
@@ -39,14 +43,16 @@ public class BoardController {
         return "index";
     }
 
-    // 글쓰기 화면 페이지
+    // 게시글 저장 페이지
+    @ApiOperation(value = "게시글 저장 페이지 API", notes = "게시글 저장 페이지로 이동합니다.")
     @GetMapping("/boards/form")
     public String writeForm() {
 
         return "boards/writeForm";
     }
 
-    // 상세정보 페이지
+    // 회원 상세정보 페이지
+    @ApiOperation(value = "회원 상세정보 페이지 API", notes = "회원 상세정보 페이지로 이동합니다.")
     @GetMapping("/boards/detail/{id}")
     public String detailForm(@PathVariable Long id,
                              @AuthenticationPrincipal PrincipalDetail principal, Model model) {
@@ -57,7 +63,8 @@ public class BoardController {
         return "boards/detailForm";
     }
 
-    // 글 수정 페이지
+    // 게시글 수정 페이지
+    @ApiOperation(value = "게시글 수정 페이지 API", notes = "게시글 수정 페이지로 이동합니다.")
     @GetMapping("/boards/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
 

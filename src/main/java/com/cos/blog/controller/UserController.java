@@ -2,6 +2,8 @@ package com.cos.blog.controller;
 
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 // 그냥 주소가 / 이면 index.jsp 허용
 // static 이하에 있는 /js/**, /css/**, /image/** 허용
 
+@Api(description = "사용자 Controller")
 @RequiredArgsConstructor
 @Controller
 public class UserController {
@@ -22,6 +25,7 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
 
     // 로그인 페이지
+    @ApiOperation(value = "로그인 페이지", notes = "로그인 페이지로 이동합니다.")
     @GetMapping("/auth/signin")
     public String signInForm(Model model) {
 
@@ -29,6 +33,7 @@ public class UserController {
     }
 
     // 회원가입 페이지
+    @ApiOperation(value = "회원가입 페이지", notes = "회원가입 페이지로 이동합니다.")
     @GetMapping("/auth/signup")
     public String signUpForm() {
 
@@ -36,6 +41,7 @@ public class UserController {
     }
 
     // 회원 정보 수정 페이지
+    @ApiOperation(value = "회원 정보수정 페이지", notes = "회원 정보수정 페이지로 이동합니다.")
     @GetMapping("/users/form")
     public String updateForm(@AuthenticationPrincipal PrincipalDetail principal, Model model) {
 

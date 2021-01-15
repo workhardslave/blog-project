@@ -11,10 +11,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.function.Supplier;
 
+@ApiIgnore
 @RestController // html이 아닌 data를 리턴해주는 controller
 public class DummyController {
 

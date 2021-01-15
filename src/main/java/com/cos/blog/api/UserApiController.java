@@ -3,6 +3,8 @@ package com.cos.blog.api;
 import com.cos.blog.dto.UserSaveRequestDto;
 import com.cos.blog.dto.UserUpdateRequestDto;
 import com.cos.blog.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Api(description = "사용자 RestController")
 @RequiredArgsConstructor
 @RestController
 public class UserApiController {
@@ -21,6 +24,7 @@ public class UserApiController {
     private final AuthenticationManager authenticationManager;
 
     // 회원가입 API
+    @ApiOperation(value = "회원가입", notes = "회원가입을 진행합니다.")
     @PostMapping("/auth/api/signup")
     public Long save(@RequestBody @Valid UserSaveRequestDto dto) { // @Valid 부분에서 유효성 검사가 일어나는듯?, 컨트롤러 안으로 안들어감
 
@@ -31,6 +35,7 @@ public class UserApiController {
     }
 
     // 회원 정보 수정 API
+    @ApiOperation(value = "회원 정보수정", notes = "회원 정보수정을 진행합니다.")
     @PutMapping("/api/users/{id}")
     public Long update(@PathVariable Long id, @RequestBody @Valid UserUpdateRequestDto dto) {
 
